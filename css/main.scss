@@ -1,0 +1,31 @@
+@function get-color($color) {
+    @return map-get($palette, $color);
+}
+
+@function text-color($type) {
+    @return map-get($text-color, $type);
+}
+
+$palette: (white: #FFF,
+    gray: #888,
+    black: #000,
+);
+
+$text-color: (primary: get-color(white),
+    secondary: get-color(gray),
+);
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: black;
+}
+
+* {
+    color: text-color(primary);
+}
