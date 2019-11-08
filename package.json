@@ -1,0 +1,22 @@
+{
+  "name": "stock-dashboard",
+  "version": "1.0.0",
+  "description": "a simple stock dashboard made using Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thismarvin/stock-dashboard.git"
+  },
+  "author": "Marvin Valenzuela",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thismarvin/stock-dashboard/issues"
+  },
+  "homepage": "https://github.com/thismarvin/stock-dashboard#readme",
+  "dependencies": {
+    "electron": "^7.1.1"
+  }
+}
