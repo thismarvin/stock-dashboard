@@ -29,3 +29,30 @@ body {
 * {
     color: text-color(primary);
 }
+
+.temp-container {
+    width: 100%;
+    height: 100%;
+}
+
+.what {
+    width: 100%;
+    height: 75%;
+    display: flex;
+}
+
+.message {
+    margin: auto;
+
+    h1,
+    h3 {
+        margin: 0;
+    }
+
+    transform: translateY(100%);
+}
+
+.wave {
+    width: 100%;
+    height: 25%;
+}
