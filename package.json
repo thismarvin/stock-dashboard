@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/thismarvin/stock-dashboard#readme",
   "dependencies": {
-    "electron": "^7.1.1"
+    "electron": "^7.1.1",
+    "p5": "^0.10.2"
   }
 }
