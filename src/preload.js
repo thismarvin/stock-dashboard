@@ -1,6 +1,6 @@
 const {
   Dashboard
-} = require("./javascript/dashboard.js");
+} = require("./js/dashboard.js");
 
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
@@ -14,5 +14,6 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${type}-version`, process.versions[type]);
   }
 
-  const mainDashboard = new Dashboard();
+  const dashboard = new Dashboard();
+  dashboard.run();
 })

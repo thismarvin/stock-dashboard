@@ -4,7 +4,7 @@
 
 const {
     Price
-} = require("./modules/price.js");
+} = require("./managers/price.js");
 
 class Dashboard {
     constructor() {
@@ -14,14 +14,15 @@ class Dashboard {
         this.validTradingDay = true;
         this.date = null;
         this.parseDate();
-        console.log(this.date);
-        
-        this.price = null;
 
+        this.price = null;
+    }
+
+    run() {
         this.initialize().then(([credentials]) => {
             this.credentials = credentials;
             this.alphavantageKey = this.credentials["alphavantageKey"];
-            //this.price = new Price(this.alphavantageKey);
+            this.price = new Price(this.alphavantageKey, this.date);
         });
     }
 

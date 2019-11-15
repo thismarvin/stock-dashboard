@@ -2,7 +2,7 @@
   "name": "stock-dashboard",
   "version": "1.0.0",
   "description": "a simple stock dashboard made using Electron",
-  "main": "main.js",
+  "main": "./src/main.js",
   "scripts": {
     "start": "electron ."
   },

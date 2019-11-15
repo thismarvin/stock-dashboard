@@ -3,7 +3,7 @@
  */
 class Graph {
     constructor() {
-        this.data = [];
+        // I really dont know what to put here . . .
     }    
 }
 module.exports.Graph = Graph;
