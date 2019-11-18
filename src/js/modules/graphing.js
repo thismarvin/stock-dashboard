@@ -18,7 +18,7 @@ class LineGraph {
         this.entries = entries;
 
         this.entries.sort((a, b) => {
-            return a["zIndex"] - b["zIndex"]
+            return a.zIndex - b.zIndex;
         });
 
         this.minimum = 0;
@@ -26,6 +26,9 @@ class LineGraph {
         this.range = 0;
 
         this.analyzeData();
+
+        this.padding = 2;
+        this.updateGraph = true;
 
         const attachedDiv = document.querySelector(`#${id}`);
         const instance = this;
@@ -37,20 +40,29 @@ class LineGraph {
                 myCanvas = p5.createCanvas(attachedDiv.clientWidth, attachedDiv.clientHeight);
                 myCanvas.parent(attachedDiv);
 
-                p5.frameRate(1);
+                p5.frameRate(60);
             };
 
             p5.draw = function () {
-                p5.background(0);
                 p5.drawGraph();
             };
 
             p5.windowResized = function () {
                 myCanvas = p5.resizeCanvas(0, 0);
-                myCanvas = p5.resizeCanvas(attachedDiv.clientWidth, attachedDiv.clientHeight);
+                setTimeout(() => {
+                    myCanvas = p5.resizeCanvas(attachedDiv.clientWidth, attachedDiv.clientHeight);
+                    instance.updateGraph = true;
+                }, 250);
             }
 
             p5.drawGraph = function () {
+                if (!instance.updateGraph) {
+                    return;
+                }
+
+                p5.clear(0);
+                instance.updateGraph = false;
+
                 for (let i = 0; i < instance.entries.length; i++) {
                     p5.stroke(instance.entries[i].color);
                     p5.strokeWeight(instance.entries[i].thickness);
@@ -61,9 +73,9 @@ class LineGraph {
                         }
                         p5.line(
                             p5.map(j - 1, 1, instance.entries[i].data.length - 1, 0, p5.width),
-                            p5.map(instance.entries[i].data[j - 1], instance.minimum, instance.maximum, p5.height, 0),
+                            p5.map(instance.entries[i].data[j - 1], instance.minimum, instance.maximum, p5.height - instance.padding, instance.padding),
                             p5.map(j, 1, instance.entries[i].data.length - 1, 0, p5.width),
-                            p5.map(instance.entries[i].data[j], instance.minimum, instance.maximum, p5.height, 0)
+                            p5.map(instance.entries[i].data[j], instance.minimum, instance.maximum, p5.height - instance.padding, instance.padding)
                         );
                     }
                 }
@@ -95,6 +107,7 @@ class LineGraph {
     }
 
     updateData(entries) {
+        this.updateGraph = true;
         this.entries = entries;
         this.analyzeData();
     }
