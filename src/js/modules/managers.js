@@ -35,9 +35,9 @@ class MACDManager {
         this.macdGraph = new LineGraph(
             "macd",
             [
-                new GraphData("zero", [0], 1, 1, "#FFFFFF"),
-                new GraphData("macd", macd, 2, 2, "#29ADFF"),
-                new GraphData("macdSignal", macdSignal, 2, 2, "#0000FC"),
+                new GraphData("zero", [0, 0, 0], 1, 1, "#FFFFFF"),
+                new GraphData("macd", macd, 3, 2, "#29ADFF"),
+                new GraphData("macdSignal", macdSignal, 3, 2, "#0000FC"),
             ]
         );
     }
@@ -46,8 +46,8 @@ class MACDManager {
         this.macdGraph.updateData(
             [
                 new GraphData("zero", [0, 0, 0], 1, 1, "#FFFFFF"),
-                new GraphData("macd", macd, 2, 2, "#29ADFF"),
-                new GraphData("macdSignal", macdSignal, 2, 2, "#0000FC"),
+                new GraphData("macd", macd, 3, 2, "#29ADFF"),
+                new GraphData("macdSignal", macdSignal, 3, 2, "#0000FC"),
             ]
         );
     }
@@ -60,13 +60,13 @@ class RSIManager {
         this.rsiGraph = new LineGraph(
             "rsi",
             [
-                new GraphData("bottom", [0], 1, 1, "#000000"),
-                new GraphData("top", [100], 1, 1, "#000000"),
+                new GraphData("bottom", [20], 1, 1, "#000000"),
+                new GraphData("top", [80], 1, 1, "#000000"),
 
-                new GraphData("topLine", [80, 80, 80], 1, 1, "#FFFFFF"),
-                new GraphData("bottomLine", [20, 20, 20], 1, 1, "#FFFFFF"),
+                new GraphData("topLine", [70, 70, 70], 1, 1, "#FFFFFF"),
+                new GraphData("bottomLine", [30, 30, 30], 1, 1, "#FFFFFF"),
 
-                new GraphData("rsi", rsi, 2, 2, "#FFFFFF"),
+                new GraphData("rsi", rsi, 3, 2, "#FFFFFF"),
             ]
         );
     }
@@ -74,13 +74,13 @@ class RSIManager {
     updateData(rsi) {
         this.rsiGraph.updateData(
             [
-                new GraphData("bottom", [0], 1, 1, "#000000"),
-                new GraphData("top", [100], 1, 1, "#000000"),
+                new GraphData("bottom", [20], 1, 1, "#000000"),
+                new GraphData("top", [80], 1, 1, "#000000"),
 
-                new GraphData("topLine", [80, 80, 80], 1, 1, "#FFFFFF"),
-                new GraphData("bottomLine", [20, 20, 20], 1, 1, "#FFFFFF"),
+                new GraphData("topLine", [70, 70, 70], 1, 1, "#FFFFFF"),
+                new GraphData("bottomLine", [30, 30, 30], 1, 1, "#FFFFFF"),
 
-                new GraphData("rsi", rsi, 2, 2, "#FFFFFF"),
+                new GraphData("rsi", rsi, 3, 2, "#FFFFFF"),
             ]
         );
     }
