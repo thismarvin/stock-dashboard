@@ -47,7 +47,7 @@ class Dashboard {
         this.update();
 
         setInterval(() => {
-            this.update()
+            this.update();
         }, this.updateFrequency * 1000);
     }
 
