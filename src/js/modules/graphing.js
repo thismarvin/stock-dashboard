@@ -156,8 +156,6 @@ class Histogram {
             p5.setup = function () {
                 myCanvas = p5.createCanvas(attachedDiv.clientWidth, attachedDiv.clientHeight);
                 myCanvas.parent(attachedDiv);
-
-                p5.frameRate(60);
             };
 
             p5.draw = function () {
@@ -177,19 +175,25 @@ class Histogram {
                     return;
                 }
 
-                p5.clear(0);
+                // Setup draw.
                 instance.updateGraph = false;
+                p5.clear(0);
 
+                // Calculate the y value equivalent to zero.
+                const start = p5.map(0, instance.minimum, instance.maximum, p5.height - instance.padding, instance.padding);                
+                const topHeight = start;
+                const bottomHeight = (p5.height - instance.padding) - start;
 
-                const start = p5.map(0, instance.minimum, instance.maximum, p5.height - instance.padding, instance.padding);
-
+                // Draw a line representing the x-axis.
+                p5.stroke(255);
+                p5.line(0, start, p5.width, start);
+                
+                // Draw the Histogram.
                 let histogramWidth;
                 let histogramHeight;
-
-                p5.noStroke();
-
                 for (let i = 0; i < instance.entries.length; i++) {
-
+                    // Setup the Histogram's styling.
+                    p5.noStroke();
                     p5.fill(instance.entries[i].color);
 
                     histogramWidth = p5.width / instance.entries[i].data.length;
@@ -200,7 +204,7 @@ class Histogram {
                         }
 
                         if (instance.entries[i].data[j] >= 0){
-                            histogramHeight = p5.map(instance.entries[i].data[j], 0, instance.maximum, 0, (p5.height - instance.padding) - start);
+                            histogramHeight = p5.map(instance.entries[i].data[j], 0, instance.maximum, 0, topHeight);
                             p5.fill(0, 255, 0);
                             p5.rect(
                                 j * histogramWidth,
@@ -210,7 +214,7 @@ class Histogram {
                             );
                         }
                         else {
-                            histogramHeight = p5.map(instance.entries[i].data[j], instance.minimum, 0, start, 0);
+                            histogramHeight = p5.map(instance.entries[i].data[j], instance.minimum, 0, bottomHeight, 0);
                             p5.fill(255, 0, 0);
                             p5.rect(
                                 j * histogramWidth,
