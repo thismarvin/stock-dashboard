@@ -14,10 +14,13 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 320 * 2,
     height: 180 * 2,
+    minWidth: 135,
+    minHeight: 150,
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
-  });
+  }); 
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html');

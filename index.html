@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
 
     <title>Stock Dashboard</title>
 
@@ -12,7 +13,23 @@
 </head>
 
 <body>
-    <div class="dashboard">
+    <div class="menu">
+        <div class="dragable"></div>
+        <div class="buttons">
+            <svg viewBox="0 0 16 16" class="button" id="min-btn">
+                <g>
+                    <line x1="0" y1="8" x2="16" y2="8"/>                   
+                </g>
+            </svg>
+            <svg viewBox="0 0 8 8" class="button" id="close-btn">
+                <g>
+                    <line x1="1" y1="1" x2="7" y2="7"/>
+                    <line x1="1" y1="7" x2="7" y2="1"/>                    
+                </g>
+            </svg>
+        </div>
+    </div>
+    <div class="dashboard">        
         <div id="price" class="chart"></div>
         <div id="macd" class="chart"></div>
         <div id="rsi" class="chart"></div>

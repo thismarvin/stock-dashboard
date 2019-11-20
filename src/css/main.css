@@ -1,3 +1,11 @@
+:root {
+  --menu-padding: 6px;
+  --dragable-height: 23px;
+  --menu-height: calc(var(--menu-padding) + var(--dragable-height));
+  --button-svg-size: 12px;
+  --button-width: 45px;
+}
+
 html,
 body {
   height: 100%;
@@ -6,16 +14,57 @@ body {
 }
 
 body {
-  background: black;
+  background: #292D3E;
 }
 
 * {
   color: #FFF;
 }
 
+.button {
+  width: var(--button-svg-size);
+  height: calc(var(--button-svg-size) + var(--menu-padding));
+  padding: calc((var(--dragable-height) - var(--button-svg-size)) / 2) calc((var(--button-width) - var(--button-svg-size)) / 2);
+  fill: none;
+  stroke: #9AA0C0;
+  stroke-width: 1px;
+}
+
+.button#min-btn:hover {
+  background: #323541;
+}
+
+.button#close-btn:hover {
+  background: #D41224;
+  stroke: white;
+}
+
+.menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #1B1E2B;
+}
+
+.menu .dragable {
+  -webkit-app-region: drag;
+  width: calc(100% - var(--button-width));
+  height: var(--dragable-height);
+  margin: var(--menu-padding) 0 0 var(--menu-padding);
+}
+
+.menu .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
 .dashboard {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - var(--menu-height));
   display: -ms-grid;
   display: grid;
       grid-template-areas: "prices" "macd" "rsi";
@@ -29,18 +78,15 @@ body {
 
 #price {
   grid-area: "prices";
-  background: red;
   margin-top: 2%;
 }
 
 #macd {
   grid-area: "macd";
-  background: green;
 }
 
 #rsi {
   grid-area: "rsi";
-  background: blue;
   margin-bottom: 2%;
 }
 /*# sourceMappingURL=main.css.map */

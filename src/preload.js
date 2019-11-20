@@ -1,3 +1,5 @@
+const remote = require('electron').remote;
+
 const {
   Dashboard
 } = require("./js/dashboard");
@@ -13,6 +15,16 @@ window.addEventListener('DOMContentLoaded', () => {
   for (const type of ['chrome', 'node', 'electron']) {
     replaceText(`${type}-version`, process.versions[type]);
   }
+
+  document.getElementById("close-btn").addEventListener("click", () => {
+    const window = remote.getCurrentWindow();
+    window.close();
+  });
+
+  document.getElementById("min-btn").addEventListener("click", () => {
+    const window = remote.getCurrentWindow();
+    window.minimize();
+  });
 
   const dashboard = new Dashboard();
   dashboard.run();

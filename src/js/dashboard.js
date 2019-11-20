@@ -24,7 +24,7 @@ class Dashboard {
 
         // Price Manager
         this.pricingData = Array(390).fill(undefined);
-        this.volumeData = Array(390).fill(undefined);
+        this.volumeData = Array(390 / 5).fill(0);
         this.longEMAData = Array(390).fill(undefined);
         this.shortEMAData = Array(390).fill(undefined);
         this.vwapData = Array(390).fill(undefined);
@@ -47,7 +47,7 @@ class Dashboard {
         this.update();
 
         setInterval(() => {
-            this.update()
+            this.update();
         }, this.updateFrequency * 1000);
     }
 
@@ -215,6 +215,7 @@ class Dashboard {
     //#region Data Parsing
 
     parsePricing(pricing) {
+        this.volumeData = Array(390 / 5).fill(0);
         for (let category in pricing) {
             if (category === "Time Series (1min)") {
                 for (let time in pricing[category]) {
@@ -223,7 +224,7 @@ class Dashboard {
                             if (type === "4. close") {
                                 this.pricingData[this.timeIndex(time)] = parseFloat(pricing[category][time][type]);
                             } else if (type === "5. volume") {
-                                this.volumeData[this.timeIndex(time)] = parseFloat(pricing[category][time][type]);
+                                this.volumeData[parseInt(this.timeIndex(time) / 5)] += parseFloat(pricing[category][time][type]);
                             }
                         }
                     }
