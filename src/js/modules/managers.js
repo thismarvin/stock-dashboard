@@ -29,6 +29,9 @@ class PriceManager {
         pricingGraph.addStyling({
             "color": "#9AACCD"
         });
+        pricingGraph.addStyling({
+            "thickness": 2
+        });
 
         this.grapher.attach(
             new GraphEntry(
@@ -148,7 +151,7 @@ class MACDManager {
             "color": "#29ADFF"
         });
         macdGraph.addStyling({
-            "thickness": 2
+            "thickness": 3
         });
         this.grapher.attach(
             new GraphEntry(
@@ -163,7 +166,7 @@ class MACDManager {
             "color": "#2955CE"
         });
         macdSignalGraph.addStyling({
-            "thickness": 2
+            "thickness": 3
         });
         this.grapher.attach(
             new GraphEntry(
@@ -174,6 +177,9 @@ class MACDManager {
         );
 
         let zeroGraph = new LineGraph([0, 0, 0]);
+        zeroGraph.addStyling({
+            "color": "#9AACCD"
+        });
         this.grapher.attach(
             new GraphEntry(
                 "zero",
