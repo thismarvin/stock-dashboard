@@ -97,6 +97,10 @@ class PriceManager {
         this.grapher.applyChanges();
     }
 
+    jumpstart() {
+        this.grapher.applyChanges();
+    }
+
     updateData(pricing, volume, shortEMA, longEMA, vwap) {
         const volumeGraph = this.grapher.getEntry("volume").graph;
         const pricingGraph = this.grapher.getEntry("pricing").graph;
@@ -214,6 +218,10 @@ class MACDManager {
         this.grapher.applyChanges();
     }
 
+    jumpstart() {
+        this.grapher.applyChanges();
+    }
+
     updateData(macd, macdSignal, macdHistogram) {
         const zeroGraph = this.grapher.getEntry("zero").graph;
         const macdGraph = this.grapher.getEntry("macd").graph;
@@ -294,6 +302,10 @@ class RSIManager {
                 "padding": 5
             });
         }
+        this.grapher.applyChanges();
+    }
+
+    jumpstart() {
         this.grapher.applyChanges();
     }
 

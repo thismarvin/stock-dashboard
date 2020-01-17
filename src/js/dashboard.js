@@ -10,15 +10,14 @@ const {
 
 class Dashboard {
     constructor() {
-        this.credentials = null;
         this.alphavantageKey = null;
 
         this.validTradingDay = true;
         this.date = null;
         this.parseDate();
 
-        this.updateFrequency = 15;
-        this.targetStock = "SPY";
+        this.updateFrequency = 60;
+        this.targetStock = null;
         this.shortEMAPeriod = 12 * 5;
         this.longEMAPeriod = 26 * 5;
 
@@ -39,39 +38,33 @@ class Dashboard {
         this.macdManager = new MACDManager(this.macdData, this.macdSignalData, this.macdHistogramData);
         this.rsiManager = new RSIManager(this.rsiData);
 
+        this.state = 1;
         this.setup = false;
-    }
-
-    run() {
-        this.initialize();
-        this.update();
-
-        setInterval(() => {
-            this.update();
-        }, this.updateFrequency * 1000);
     }
 
     //#region Initialization
 
-    initialize() {
-        if (this.setup)
+    jumpstart(apikey, stock) {
+        if (typeof apikey !== "string" || typeof stock !== "string") {
             return;
+        }
 
-        this.initializeDashboard().then(([credentials]) => {
-            this.credentials = credentials;
-            this.alphavantageKey = this.credentials["alphavantageKey"];
-            this.setup = true;
-        });
-    }
+        this.alphavantageKey = apikey;
+        this.targetStock = stock;
 
-    initializeDashboard() {
-        return Promise.all([this.getCredentials()]);
-    }
+        this.update();
 
-    async getCredentials() {
-        const file = await fetch("testing_credentials.json");
-        const json = await file.json();
-        return json;
+        setTimeout(() => {
+            this.priceManager.jumpstart();
+            this.macdManager.jumpstart();
+            this.rsiManager.jumpstart();
+        }, 10 * 1000);
+
+        setInterval(() => {
+            this.update();
+        }, this.updateFrequency * 1000);
+
+        this.setup = true;
     }
 
     //#endregion
