@@ -18,7 +18,8 @@ body {
 }
 
 * {
-  color: #FFF;
+  color: #A5CCD6;
+  font-family: 'Roboto Mono', sans-serif;
 }
 
 .button {
@@ -62,11 +63,64 @@ body {
           justify-content: flex-end;
 }
 
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0 auto;
+  width: 265px;
+  height: calc(100% - 45px);
+}
+
+.startup {
+  width: 265px;
+}
+
+.startup input {
+  width: 135px;
+  height: 21px;
+  border-radius: 0.1em;
+  border: 0;
+  margin: 0;
+  padding: 0 0.3em;
+  background: #1B1E2B;
+  color: #A6ACCD;
+}
+
+.startup button {
+  width: 249px;
+  border-radius: 0.75em;
+  border: 0;
+  margin: 0;
+  margin-top: 1em;
+  cursor: pointer;
+  padding: 0.3em;
+  background: #1B1E2B;
+  color: #A5CCD6;
+}
+
+.startup .command-line {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-bottom: 0.25em;
+}
+
+.startup #title {
+  margin-bottom: 0.25em;
+  color: #FFCB6B;
+}
+
 .dashboard {
   width: 100%;
   height: calc(100vh - var(--menu-height));
-  display: -ms-grid;
-  display: grid;
+  display: none;
       grid-template-areas: "prices" "macd" "rsi";
   -ms-grid-rows: 48% 25% 27%;
       grid-template-rows: 48% 25% 27%;
@@ -77,16 +131,22 @@ body {
 }
 
 #price {
-  grid-area: "prices";
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: prices;
   margin-top: 2%;
 }
 
 #macd {
-  grid-area: "macd";
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: macd;
 }
 
 #rsi {
-  grid-area: "rsi";
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: rsi;
   margin-bottom: 2%;
 }
 /*# sourceMappingURL=main.css.map */
