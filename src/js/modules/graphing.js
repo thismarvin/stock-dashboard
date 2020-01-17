@@ -48,19 +48,20 @@ class Grapher {
             p5.draw = function () {
 
                 if (instance.updateGraph) {
+                    // Account for any uncaught window resizes.
+                    myCanvas = p5.resizeCanvas(attachedDiv.clientWidth, attachedDiv.clientHeight);
+
                     p5.clear();
                     for (let i of instance.entries) {
                         i.graph.draw(p5);
                     }
                     instance.updateGraph = false;
                 }
-
             };
 
             p5.windowResized = function () {
                 myCanvas = p5.resizeCanvas(0, 0);
                 setTimeout(() => {
-                    myCanvas = p5.resizeCanvas(attachedDiv.clientWidth, attachedDiv.clientHeight);
                     instance.updateGraph = true;
                 }, 100);
             }
