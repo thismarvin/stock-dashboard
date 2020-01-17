@@ -9,11 +9,12 @@
 $palette: (white: #FFF,
     gray: #888,
     black: #000,
+    light-gray: #A6ACCD,
+    weird-gray: #A5CCD6,
 );
 
-$text-color: (primary: get-color(white),
-    secondary: get-color(gray),
-);
+$text-color: (primary: get-color(weird-gray),
+    secondary: get-color(light-gray));
 
 :root {
     --menu-padding: 6px;
@@ -36,6 +37,7 @@ body {
 
 * {
     color: text-color(primary);
+    font-family: 'Roboto Mono', sans-serif;
 }
 
 .button {
@@ -74,11 +76,58 @@ body {
 }
 
 
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 265px;
+    height: calc(100% - 45px);
+}
+
+.startup {
+    width: 265px;
+
+    input {
+        width: 135px;
+        height: 21px;
+        border-radius: 0.1em;
+        border: 0;
+        margin: 0;
+        padding: 0 0.3em;
+        background: #1B1E2B;
+        color: text-color(secondary);
+    }
+
+    button {
+        width: 249px;
+        border-radius: 0.75em;
+        border: 0;
+        margin: 0;
+        margin-top: 1em;
+        cursor: pointer;
+        padding: 0.3em;
+        background: #1B1E2B;
+        color: text-color(primary);
+    }
+
+    .command-line {
+        display: inline-flex;
+        margin-bottom: 0.25em;
+    }
+
+    #title {
+        margin-bottom: 0.25em;
+        color: #FFCB6B;
+    }
+}
+
+
 .dashboard {
     width: 100%;
     height: calc(100vh - var(--menu-height));
 
-    display: grid;
+    display: none;
     grid-template-areas:
         "prices"
         "macd"
@@ -93,18 +142,18 @@ body {
 }
 
 #price {
-    grid-area: "prices";
+    grid-area: prices;
     //background: red;
     margin-top: 2%;
 }
 
 #macd {
-    grid-area: "macd";
+    grid-area: macd;
     //background: green;
 }
 
 #rsi {
-    grid-area: "rsi";
+    grid-area: rsi;
     //background: blue;
     margin-bottom: 2%;
 }

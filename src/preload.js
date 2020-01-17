@@ -27,5 +27,18 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   const dashboard = new Dashboard();
-  dashboard.run();
+
+  document.getElementById("btn-submit").addEventListener("click", () => {
+    const apikey = document.getElementById("input-api-key").value;
+    const stock = document.getElementById("input-stock").value;
+
+    if (!dashboard.setup) {
+      dashboard.jumpstart(apikey, stock);
+    }
+
+    if (dashboard.setup) {
+      document.getElementsByClassName("container")[0].style.display = "none";
+      document.getElementsByClassName("dashboard")[0].style.display = "grid";
+    }
+  });
 })
