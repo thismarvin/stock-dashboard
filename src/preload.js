@@ -16,14 +16,25 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${type}-version`, process.versions[type]);
   }
 
-  document.getElementById("close-btn").addEventListener("click", () => {
+  document.getElementById("btn-close").addEventListener("click", () => {
     const window = remote.getCurrentWindow();
     window.close();
   });
 
-  document.getElementById("min-btn").addEventListener("click", () => {
+  document.getElementById("btn-min").addEventListener("click", () => {
     const window = remote.getCurrentWindow();
     window.minimize();
+  });
+
+  let showDatabaseSetup = false;
+  document.getElementById("chbox-database").addEventListener("click", () => {
+    showDatabaseSetup = !showDatabaseSetup;
+    const databaseFields = document.getElementById("mysql-fields");
+    if (showDatabaseSetup) {
+      databaseFields.style.display = "block";
+    } else {
+      databaseFields.style.display = "none";
+    }
   });
 
   const dashboard = new Dashboard();
@@ -37,8 +48,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     if (dashboard.setup) {
-      document.getElementsByClassName("container")[0].style.display = "none";
-      document.getElementsByClassName("dashboard")[0].style.display = "grid";
+      document.getElementById("startup").style.display = "none";
+      document.getElementById("dashboard").style.display = "grid";
     }
   });
 })
