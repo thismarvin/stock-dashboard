@@ -15,15 +15,15 @@
 </head>
 
 <body>
-    <div class="menu">
-        <div class="dragable"></div>
-        <div class="buttons">
-            <svg viewBox="0 0 16 16" class="button" id="min-btn">
+    <div id="top-bar">
+        <div id="dragable"></div>
+        <div id="top-bar-buttons">
+            <svg viewBox="0 0 16 16" class="top-bar-button" id="btn-min">
                 <g>
                     <line x1="0" y1="8" x2="16" y2="8" />
                 </g>
             </svg>
-            <svg viewBox="0 0 8 8" class="button" id="close-btn">
+            <svg viewBox="0 0 8 8" class="top-bar-button" id="btn-close">
                 <g>
                     <line x1="1" y1="1" x2="7" y2="7" />
                     <line x1="1" y1="7" x2="7" y2="1" />
@@ -32,30 +32,74 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="startup">
-            <div class="command-line">
-                <span id="title">stock-dashboard</span>
-            </div>
+    <div id="contents">
+        <div class="container">
+            <div id="startup">
+                <section id="title">
+                    <h3>Stock Dashboard</h3>
+                    <hr>
+                </section>
 
-            <div class="command-line">
-                <span>> apikey = </span>
-                <input type="text" id="input-api-key">
-            </div>
+                <section id="basic-setup">
+                    <h4>Basic Setup</h4>
+                    <div id="basic-fields">
+                        <div class="field">
+                            <span>AlphaVantage API Key:</span>
+                            <input type="text" id="input-api-key">
+                        </div>
 
-            <div class="command-line">
-                <span>>  stock = </span>
-                <input type="text" id="input-stock">
-            </div>
+                        <div class="field">
+                            <span>Target Stock:</span>
+                            <input type="text" id="input-stock">
+                        </div>
 
-            <button id="btn-submit">Submit</button>
+                        <div class="field">
+                            <span>Update Frequency:</span>
+                            <input type="text" id="input-frequency">
+                        </div>
+                    </div>
+                </section>
+
+                <section id="mysql-setup">
+                    <h4>MySQL Setup</h4>
+                    <div id="connection">
+                        <input type="checkbox" id="chbox-database">
+                        <span>Connect to a MySQL database</span>
+                    </div>
+                    <div id="mysql-fields">
+                        <div class="field">
+                            <span>Host:</span>
+                            <input type="text" id="input-host">
+                        </div>
+                        <div class="field">
+                            <span>Port:</span>
+                            <input type="text" id="input-port">
+                        </div>
+                        <div class="field">
+                            <span>User:</span>
+                            <input type="text" id="input-user">
+                        </div>
+                        <div class="field">
+                            <span>Password:</span>
+                            <input type="password" id="input-password">
+                        </div>
+                        <div class="field">
+                            <span>Database:</span>
+                            <input type="text" id="input-database">
+                        </div>
+                    </div>
+                </section>
+
+                <button id="btn-submit">Submit</button>
+
+            </div>
         </div>
-    </div>
 
-    <div class="dashboard">
-        <div id="price" class="chart"></div>
-        <div id="macd" class="chart"></div>
-        <div id="rsi" class="chart"></div>
+        <div id="dashboard">
+            <div id="price" class="chart"></div>
+            <div id="macd" class="chart"></div>
+            <div id="rsi" class="chart"></div>
+        </div>
     </div>
 
 </body>

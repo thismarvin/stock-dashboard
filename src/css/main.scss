@@ -40,56 +40,78 @@ body {
     font-family: 'Roboto Mono', sans-serif;
 }
 
-.button {
-    width: var(--button-svg-size);
-    height: calc(var(--button-svg-size) + var(--menu-padding));
-    padding: calc((var(--dragable-height) - var(--button-svg-size)) / 2) calc((var(--button-width) - var(--button-svg-size)) / 2);
-    fill: none;
-    stroke: #9AA0C0;
-    stroke-width: 1px;
+::-webkit-scrollbar {
+    width: 1em;
 }
 
-.button#min-btn:hover {
-    background: #323541;
+::-webkit-scrollbar-thumb {
+    background-color: rgba(1, 1, 1, 0.2);
 }
 
-.button#close-btn:hover {
-    background: #D41224;
-    stroke: white;
-}
-
-.menu {
+#top-bar {
     display: flex;
     background: #1B1E2B;
+    width: 100%;
 
-    .dragable {
+    #dragable {
         -webkit-app-region: drag;
         width: calc(100% - var(--button-width));
         height: var(--dragable-height);
         margin: var(--menu-padding) 0 0 var(--menu-padding);
     }
 
-    .buttons {
+    #top-bar-buttons {
         display: flex;
         justify-content: flex-end;
     }
+
+    .top-bar-button {
+        width: var(--button-svg-size);
+        height: calc(var(--button-svg-size) + var(--menu-padding));
+        padding: calc((var(--dragable-height) - var(--button-svg-size)) / 2) calc((var(--button-width) - var(--button-svg-size)) / 2);
+        fill: none;
+        stroke: #9AA0C0;
+        stroke-width: 1px;
+    }
+
+    .top-bar-button#btn-min:hover {
+        background: #323541;
+    }
+
+    .top-bar-button#btn-close:hover {
+        background: #D41224;
+        stroke: white;
+    }
 }
 
+#contents {
+    width: 100%;
+    height: calc(100% - var(--menu-height));
+    overflow-y: scroll;
+}
 
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 250px;
     margin: 0 auto;
-    width: 265px;
-    height: calc(100% - 45px);
 }
 
-.startup {
-    width: 265px;
+#startup {
 
-    input {
-        width: 135px;
+    section {
+        margin: 1em 0;
+    }
+
+    h3, h4 {
+        margin-bottom: 0.75em;
+        color: #FFCB6B;
+    }
+
+    p {
+        font-size: 0.8em;
+    }
+
+    input[type=text], input[type=password] {
+        width: 225px;
         height: 21px;
         border-radius: 0.1em;
         border: 0;
@@ -99,31 +121,48 @@ body {
         color: text-color(secondary);
     }
 
+    input[type=checkbox] {
+        width: 15px;
+        height: 15px;
+        transform: translateY(3px);
+    }
+
     button {
-        width: 249px;
+        width: 60%;
+        font-size: 0.8em;
         border-radius: 0.75em;
         border: 0;
-        margin: 0;
-        margin-top: 1em;
+        margin: 1em 0;
+        padding: 0.4em;
         cursor: pointer;
-        padding: 0.3em;
         background: #1B1E2B;
         color: text-color(primary);
     }
 
-    .command-line {
-        display: inline-flex;
-        margin-bottom: 0.25em;
+    span {
+        font-size: 0.8em;
     }
 
-    #title {
-        margin-bottom: 0.25em;
-        color: #FFCB6B;
+    .field {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0.5em;
+
+        span {
+            margin-bottom: 0.5em;
+        }
+    }
+
+    #connection {
+        margin-bottom: 0.5em;
+    }
+
+    #mysql-fields {
+        display: none;
     }
 }
 
-
-.dashboard {
+#dashboard {
     width: 100%;
     height: calc(100vh - var(--menu-height));
 
