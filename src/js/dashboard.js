@@ -91,6 +91,9 @@ class Dashboard {
 
         this.connectedToDatabase = await this.queryDatabaseConnection();
         if (this.connectedToDatabase) {
+            await this.queryEntryTableCreation();
+            await this.queryDataTableCreation();
+
             const entryExists = await this.queryForExistingEntry();
 
             if (!entryExists) {
@@ -154,6 +157,56 @@ class Dashboard {
 
                 console.log("Successfully connected to MySQL database!");
                 resolve(true);
+            });
+        });
+    }
+
+    queryEntryTableCreation() {
+        const sql = `
+        CREATE TABLE IF NOT EXISTS entries (
+        entryid INT NOT NULL AUTO_INCREMENT,
+        stock VARCHAR(8) NOT NULL,
+        date DATE NOT NULL,
+        PRIMARY KEY(entryid)
+        );
+        `;
+
+        console.log("Creating Entry table if it does not already exist.");
+        return new Promise(resolve => {
+            this.databaseConnection.query(sql, err => {
+                if (err) {
+                    throw err;
+                }
+                resolve();
+            });
+        });
+    }
+
+    queryDataTableCreation() {
+        const sql = `
+        CREATE TABLE IF NOT EXISTS data  (
+        entryid INT NOT NULL,
+        time INT CHECK (time >= 0 AND time <= 389),
+        price FLOAT CHECK (price >= 0),
+        volume INT CHECK (volume >= 0),
+        shortema FLOAT CHECK(shortema >= 0),
+        longema FLOAT CHECK(longema >= 0),
+        vwap FLOAT,
+        macd FLOAT,
+        macdsignal FLOAT,
+        macdhistogram FLOAT,
+        rsi FLOAT CHECK(rsi >= 0 AND rsi <= 100),
+        FOREIGN KEY(entryid) REFERENCES entries(entryid)
+        );
+        `;
+
+        console.log("Creating Data table if it does not already exist.");
+        return new Promise(resolve => {
+            this.databaseConnection.query(sql, err => {
+                if (err) {
+                    throw err;
+                }
+                resolve();
             });
         });
     }
