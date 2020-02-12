@@ -17,6 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById("btn-close").addEventListener("click", () => {
+    dashboard.endDatabaseConnection();
     const window = remote.getCurrentWindow();
     window.close();
   });
@@ -45,6 +46,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (!dashboard.setup) {
       dashboard.jumpstart(apikey, stock);
+
+      if (showDatabaseSetup) {
+        const host = document.getElementById("input-host").value;
+        const port = document.getElementById("input-port").value;
+        const user = document.getElementById("input-user").value;
+        const password = document.getElementById("input-password").value;
+        const database = document.getElementById("input-database").value;
+
+        dashboard.connectToDatabase(host, port, user, password, database);
+      }
     }
 
     if (dashboard.setup) {
@@ -52,4 +63,4 @@ window.addEventListener('DOMContentLoaded', () => {
       document.getElementById("dashboard").style.display = "grid";
     }
   });
-})
+});

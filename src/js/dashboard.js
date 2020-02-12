@@ -2,6 +2,8 @@
 // but this is basically going to be the root of the app.
 // 🦀🦀🦀
 
+const mysql = require('mysql');
+
 const {
     PriceManager,
     MACDManager,
@@ -40,6 +42,10 @@ class Dashboard {
 
         this.state = 1;
         this.setup = false;
+
+        this.databaseConnection = null;
+        this.connectedToDatabase = false;
+        this.entryID = null;
     }
 
     //#region Initialization
@@ -67,6 +73,31 @@ class Dashboard {
         this.setup = true;
     }
 
+    async connectToDatabase(host, port, user, password, database) {
+        this.databaseConnection = mysql.createConnection({
+            host: host,
+            port: port,
+            user: user,
+            password: password,
+            database: database
+        });
+
+        this.connectedToDatabase = await this.queryDatabaseConnection();
+        if (this.connectToDatabase) {
+            const entryExists = await this.queryForExistingEntry();
+
+            if (!entryExists) {
+                await this.queryNewEntryCreation();
+            }
+
+            this.entryID = await this.queryEntryID();
+
+            if (!entryExists) {
+                this.newEntryFirstTimeSetup();
+            }
+        }
+    }
+
     //#endregion
 
     //#region Update
@@ -88,7 +119,166 @@ class Dashboard {
             this.priceManager.updateData(this.pricingData, this.volumeData, this.shortEMAData, this.longEMAData, this.vwapData);
             this.macdManager.updateData(this.macdData, this.macdSignalData, this.macdHistogramData);
             this.rsiManager.updateData(this.rsiData);
+
+            this.saveToDatabase();
         });
+    }
+
+    //#endregion
+
+    //#region MySQL Logic
+
+    endDatabaseConnection() {
+        if (this.connectedToDatabase) {
+            this.databaseConnection.end();
+        }
+    }
+
+    queryDatabaseConnection() {
+        console.log("Attempting to connect to database...");
+        return new Promise(resolve => {
+            this.databaseConnection.connect((err) => {
+                if (err) {
+                    console.log("Could not connect to MySQL database.");
+                    resolve(true);
+                }
+
+                console.log("Successfully connected to MySQL database!");
+                resolve(false);
+            });
+        });
+    }
+
+    queryForExistingEntry() {
+        const sql = `
+        SELECT * FROM entries
+        WHERE
+        stock="${this.targetStock}" AND
+        date="${this.date}"
+        ;
+        `;
+
+        console.log("Checking if an entry already exists.")
+        return new Promise(resolve => {
+            this.databaseConnection.query(sql, (err, results) => {
+                if (err) {
+                    throw err;
+                }
+                resolve(results.length !== 0);
+            });
+        });
+    }
+
+    queryNewEntryCreation() {
+        const sql = `
+        INSERT INTO entries (
+        stock,
+        date
+        )
+        VALUES (
+        "${this.targetStock}",
+        "${this.date}"
+        );
+        `;
+
+        console.log("Creating a new entry.");
+        return new Promise(resolve => {
+            this.databaseConnection.query(sql, (err) => {
+                if (err) {
+                    throw err;
+                }
+                resolve(true);
+            });
+        });
+    }
+
+    queryEntryID() {
+        const sql = `
+        SELECT entryid FROM entries
+        WHERE
+        stock="${this.targetStock}" AND
+        date="${this.date}"
+        ;
+        `;
+
+        console.log("Getting the current entry's ID");
+        return new Promise(resolve => {
+            this.databaseConnection.query(sql, (err, results) => {
+                if (err) {
+                    throw err;
+                }
+                resolve(results[0].entryid);
+            });
+        });
+    }
+
+    queryNewEntryInsertion(i) {
+        const sql = `
+        INSERT INTO data (
+        entryid,
+        time
+        )
+        VALUES (
+        ${this.entryID},
+        ${i}
+        );
+        `;
+
+        return new Promise(resolve => {
+            this.databaseConnection.query(sql, (err) => {
+                if (err) {
+                    throw err;
+                }
+                resolve();
+            });
+        });
+    }
+
+    queryEntryUpdate(i) {
+        if (
+            this.pricingData[i] === undefined ||
+            this.volumeData[parseInt(i / 5)] === undefined
+        ) {
+            return new Promise(resolve => resolve());
+        }
+
+        const sql = `
+        UPDATE data
+        SET
+        price=${this.pricingData[i]},
+        volume=${this.volumeData[parseInt(i / 5)]}
+        WHERE
+        entryid=${this.entryID} AND
+        time=${i}
+        ;
+        `;
+
+        return new Promise(resolve => {
+            this.databaseConnection.query(sql, (err) => {
+                if (err) {
+                    throw err;
+                }
+                resolve();
+            });
+        });
+    }
+
+    async newEntryFirstTimeSetup() {
+        console.log("Setting up new entry.");
+        for (let i = 0; i < 390; i++) {
+            await this.queryNewEntryInsertion(i);
+        }
+        console.log("New entry's first time setup is complete.");
+    }
+
+    async saveToDatabase() {
+        if (!this.connectToDatabase || this.entryID === null) {
+            return;
+        }
+
+        for (let i = 0; i < 390; i++) {
+            await this.queryEntryUpdate(i);
+        }
     }
 
     //#endregion
