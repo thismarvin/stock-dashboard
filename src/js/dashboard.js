@@ -83,7 +83,7 @@ class Dashboard {
         });
 
         this.connectedToDatabase = await this.queryDatabaseConnection();
-        if (this.connectToDatabase) {
+        if (this.connectedToDatabase) {
             const entryExists = await this.queryForExistingEntry();
 
             if (!entryExists) {
@@ -91,6 +91,7 @@ class Dashboard {
             }
 
             this.entryID = await this.queryEntryID();
+            console.log(`The current entry's ID is ${this.entryID}`);
 
             if (!entryExists) {
                 this.newEntryFirstTimeSetup();
@@ -140,11 +141,12 @@ class Dashboard {
             this.databaseConnection.connect((err) => {
                 if (err) {
                     console.log("Could not connect to MySQL database.");
-                    resolve(true);
+                    resolve(false);
+                    return;
                 }
 
                 console.log("Successfully connected to MySQL database!");
-                resolve(false);
+                resolve(true);
             });
         });
     }
@@ -237,7 +239,14 @@ class Dashboard {
     queryEntryUpdate(i) {
         if (
             this.pricingData[i] === undefined ||
-            this.volumeData[parseInt(i / 5)] === undefined
+            this.volumeData[parseInt(i / 5)] === undefined ||
+            this.shortEMAData[i] === undefined ||
+            this.longEMAData[i] === undefined ||
+            this.vwapData[i] === undefined ||
+            this.macdData[parseInt(i / 5)] === undefined ||
+            this.macdSignalData[parseInt(i / 5)] === undefined ||
+            this.macdHistogramData[parseInt(i / 5)] === undefined ||
+            this.rsiData[parseInt(i / 5)] === undefined
         ) {
             return new Promise(resolve => resolve());
         }
@@ -246,7 +255,14 @@ class Dashboard {
         UPDATE data
         SET
         price=${this.pricingData[i]},
-        volume=${this.volumeData[parseInt(i / 5)]}
+        volume=${this.volumeData[parseInt(i / 5)]},
+        shortema=${this.shortEMAData[i]},
+        longema=${this.shortEMAData[i]},
+        vwap=${this.longEMAData[i]},
+        macd=${this.macdData[parseInt(i / 5)]},
+        macdsignal=${this.macdSignalData[parseInt(i / 5)]},
+        macdhistogram=${this.macdHistogramData[parseInt(i / 5)]},
+        rsi=${this.rsiData[parseInt(i / 5)]}
         WHERE
         entryid=${this.entryID} AND
         time=${i}
