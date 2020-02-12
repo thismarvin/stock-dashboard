@@ -72,9 +72,15 @@ class Dashboard {
         }, this.updateFrequency * 1000);
 
         this.setup = true;
+
+        console.log("The Dashboard has started!");
     }
 
     async connectToDatabase(host, port, user, password, database) {
+        if (!this.setup) {
+            return;
+        }
+
         this.databaseConnection = mysql.createConnection({
             host: host,
             port: port,
@@ -137,7 +143,7 @@ class Dashboard {
     }
 
     queryDatabaseConnection() {
-        console.log("Attempting to connect to database...");
+        console.log("Attempting to connect to MySQL database...");
         return new Promise(resolve => {
             this.databaseConnection.connect((err) => {
                 if (err) {

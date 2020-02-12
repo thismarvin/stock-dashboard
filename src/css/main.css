@@ -26,6 +26,10 @@ body {
   width: 1em;
 }
 
+::-webkit-scrollbar-corner {
+  background-color: rgba(1, 1, 1, 0.5);
+}
+
 ::-webkit-scrollbar-thumb {
   background-color: rgba(1, 1, 1, 0.2);
 }
@@ -87,7 +91,8 @@ body {
   margin: 1em 0;
 }
 
-#startup h3, #startup h4 {
+#startup h3,
+#startup h4 {
   margin-bottom: 0.75em;
   color: #FFCB6B;
 }
@@ -96,7 +101,9 @@ body {
   font-size: 0.8em;
 }
 
-#startup input[type=text], #startup input[type=password] {
+#startup input[type=text],
+#startup input[type=password],
+#startup input[type=number] {
   width: 225px;
   height: 21px;
   border-radius: 0.1em;
@@ -107,6 +114,12 @@ body {
   color: #A6ACCD;
 }
 
+#startup input[type=number]::-webkit-inner-spin-button,
+#startup input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 #startup input[type=checkbox] {
   width: 15px;
   height: 15px;
@@ -114,7 +127,7 @@ body {
           transform: translateY(3px);
 }
 
-#startup button {
+#startup input[type=submit] {
   width: 60%;
   font-size: 0.8em;
   border-radius: 0.75em;

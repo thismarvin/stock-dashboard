@@ -44,6 +44,10 @@ body {
     width: 1em;
 }
 
+::-webkit-scrollbar-corner {
+    background-color: rgba(1, 1, 1, 0.5);;
+}
+
 ::-webkit-scrollbar-thumb {
     background-color: rgba(1, 1, 1, 0.2);
 }
@@ -101,7 +105,8 @@ body {
         margin: 1em 0;
     }
 
-    h3, h4 {
+    h3,
+    h4 {
         margin-bottom: 0.75em;
         color: #FFCB6B;
     }
@@ -110,7 +115,9 @@ body {
         font-size: 0.8em;
     }
 
-    input[type=text], input[type=password] {
+    input[type=text],
+    input[type=password],
+    input[type=number] {
         width: 225px;
         height: 21px;
         border-radius: 0.1em;
@@ -121,13 +128,19 @@ body {
         color: text-color(secondary);
     }
 
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
     input[type=checkbox] {
         width: 15px;
         height: 15px;
         transform: translateY(3px);
     }
 
-    button {
+    input[type=submit] {
         width: 60%;
         font-size: 0.8em;
         border-radius: 0.75em;

@@ -40,20 +40,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const dashboard = new Dashboard();
 
-  document.getElementById("btn-submit").addEventListener("click", () => {
-    const apikey = document.getElementById("input-api-key").value;
-    const stock = document.getElementById("input-stock").value;
-    const frequency = document.getElementById("input-frequency").value;
+
+  document.getElementById("form-dashboard-setup").addEventListener("submit", event => {
+    const apikey = document.forms["dashboard-setup"].apikey.value;
+    const stock = document.forms["dashboard-setup"].stock.value;
+    const frequency = parseInt(document.forms["dashboard-setup"].frequency.value);
 
     if (!dashboard.setup) {
       dashboard.jumpstart(apikey, stock, frequency);
 
       if (showDatabaseSetup) {
-        const host = document.getElementById("input-host").value;
-        const port = document.getElementById("input-port").value;
-        const user = document.getElementById("input-user").value;
-        const password = document.getElementById("input-password").value;
-        const database = document.getElementById("input-database").value;
+        const host = document.forms["dashboard-setup"].host.value;
+        const port = document.forms["dashboard-setup"].port.value;
+        const user = document.forms["dashboard-setup"].user.value;
+        const password = document.forms["dashboard-setup"].password.value;
+        const database = document.forms["dashboard-setup"].database.value;
 
         dashboard.connectToDatabase(host, port, user, password, database);
       }
@@ -63,5 +64,7 @@ window.addEventListener('DOMContentLoaded', () => {
       document.getElementById("startup").style.display = "none";
       document.getElementById("dashboard").style.display = "grid";
     }
+
+    event.preventDefault();
   });
 });

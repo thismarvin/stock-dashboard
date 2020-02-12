@@ -15,6 +15,7 @@
 </head>
 
 <body>
+
     <div id="top-bar">
         <div id="dragable"></div>
         <div id="top-bar-buttons">
@@ -40,58 +41,60 @@
                     <hr>
                 </section>
 
-                <section id="basic-setup">
-                    <h4>Basic Setup</h4>
-                    <div id="basic-fields">
-                        <div class="field">
-                            <span>AlphaVantage API Key:</span>
-                            <input type="text" id="input-api-key">
-                        </div>
+                <form name="dashboard-setup" id="form-dashboard-setup" action="#">
+                    <section id="basic-setup">
+                        <h4>Basic Setup</h4>
+                        <div id="basic-fields">
+                            <div class="field">
+                                <span>AlphaVantage API Key:</span>
+                                <input type="text" id="input-api-key" name="apikey" pattern="[A-Za-z0-9]+"
+                                    title="An API key containing only letters and numbers." required>
+                            </div>
 
-                        <div class="field">
-                            <span>Target Stock:</span>
-                            <input type="text" id="input-stock">
-                        </div>
+                            <div class="field">
+                                <span>Target Stock:</span>
+                                <input type="text" id="input-stock" name="stock" pattern="[A-Za-z]{1,4}"
+                                    title="A stock ticker containing one to four letters." required>
+                            </div>
 
-                        <div class="field">
-                            <span>Update Frequency:</span>
-                            <input type="text" id="input-frequency">
+                            <div class="field">
+                                <span>Update Frequency:</span>
+                                <input type="number" min="15" id="input-frequency" name="frequency" required>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
 
-                <section id="mysql-setup">
-                    <h4>MySQL Setup</h4>
-                    <div id="connection">
-                        <input type="checkbox" id="chbox-database">
-                        <span>Connect to a MySQL database</span>
-                    </div>
-                    <div id="mysql-fields">
-                        <div class="field">
-                            <span>Host:</span>
-                            <input type="text" id="input-host">
+                    <section id="mysql-setup">
+                        <h4>MySQL Setup</h4>
+                        <div id="connection">
+                            <input type="checkbox" id="chbox-database">
+                            <span>Connect to a MySQL database</span>
                         </div>
-                        <div class="field">
-                            <span>Port:</span>
-                            <input type="text" id="input-port">
+                        <div id="mysql-fields">
+                            <div class="field">
+                                <span>Host:</span>
+                                <input type="text" id="input-host" name="host">
+                            </div>
+                            <div class="field">
+                                <span>Port:</span>
+                                <input type="number" min="0" id="input-port" name="port">
+                            </div>
+                            <div class="field">
+                                <span>User:</span>
+                                <input type="text" id="input-user" name="user">
+                            </div>
+                            <div class="field">
+                                <span>Password:</span>
+                                <input type="password" id="input-password" name="password">
+                            </div>
+                            <div class="field">
+                                <span>Database:</span>
+                                <input type="text" id="input-database" name="database">
+                            </div>
                         </div>
-                        <div class="field">
-                            <span>User:</span>
-                            <input type="text" id="input-user">
-                        </div>
-                        <div class="field">
-                            <span>Password:</span>
-                            <input type="password" id="input-password">
-                        </div>
-                        <div class="field">
-                            <span>Database:</span>
-                            <input type="text" id="input-database">
-                        </div>
-                    </div>
-                </section>
-
-                <button id="btn-submit">Submit</button>
-
+                    </section>
+                    <input type="submit" value="Submit" id="btn-submit">
+                </form>
             </div>
         </div>
 
