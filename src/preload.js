@@ -43,9 +43,10 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById("btn-submit").addEventListener("click", () => {
     const apikey = document.getElementById("input-api-key").value;
     const stock = document.getElementById("input-stock").value;
+    const frequency = document.getElementById("input-frequency").value;
 
     if (!dashboard.setup) {
-      dashboard.jumpstart(apikey, stock);
+      dashboard.jumpstart(apikey, stock, frequency);
 
       if (showDatabaseSetup) {
         const host = document.getElementById("input-host").value;

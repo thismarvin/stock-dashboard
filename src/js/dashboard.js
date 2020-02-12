@@ -50,13 +50,14 @@ class Dashboard {
 
     //#region Initialization
 
-    jumpstart(apikey, stock) {
-        if (typeof apikey !== "string" || typeof stock !== "string") {
+    jumpstart(apikey, stock, frequency) {
+        if (typeof apikey !== "string" || typeof stock !== "string" || typeof frequency !== "number") {
             return;
         }
 
         this.alphavantageKey = apikey;
         this.targetStock = stock;
+        this.updateFrequency = frequency;
 
         this.update();
 
